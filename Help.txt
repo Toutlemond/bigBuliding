@@ -1,0 +1,20 @@
+Чисто для себя пока я туплю в Symfony
+
+Запуск сервера -
+    php bin/console server:run
+    Перед запуском отключить опенсервер
+Если не запусстилось можно сбросить кэш -
+    php bin/console cache:clear
+
+
+Миграции:
+Создать миграцию -
+    php bin/console doctrine:migrations:diff
+Применить -
+    php bin/console doctrine:migrations:migrate
+
+
+Сущности(По сути таблицы в базеданных в итоге):
+Создать сущность
+     php bin/console make:entity имя
+     Далее описываем все поля, если есть связи луше их тоже описать тут сразу. проще будет потом.

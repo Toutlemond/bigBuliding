@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="main")
+     * @Route("", name="main")
      */
     public function index()
     {
@@ -18,7 +18,7 @@ class MainController extends AbstractController
         ]);
     }
     /**
-     * @Route("/number", name="main")
+     * @Route("/number", name="number")
      */
     public function numder()
     {

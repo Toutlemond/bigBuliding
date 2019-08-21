@@ -19,7 +19,9 @@
     <h3>Владелец</h3>
     {{ user.name }} {{ user.surname }} {{ user.city }}
     {{ dump(house) }}
-<a class="btn btn-success" href="#">Нажмика</a>
+
+    <h3>Категория - {{ category }}</h3>
+
 </div>
     {% block javascripts %}
         {{ parent() }}

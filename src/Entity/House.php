@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,7 +24,7 @@ class House
     private $name;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="houses")
      */
     private $user;
 
@@ -61,15 +63,24 @@ class House
     private $posts;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=null)
      */
     private $comments;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer" , nullable=null)
      */
     private $subscr_to;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Housepost", mappedBy="house_id")
+     */
+    private $houseposts;
+
+    public function __construct()
+    {
+        $this->houseposts = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -246,6 +257,49 @@ class House
     public function setSubscrTo($subscr_to): void
     {
         $this->subscr_to = $subscr_to;
+    }
+
+    public function getUserId(): ?User
+    {
+        return $this->user_id;
+    }
+
+    public function setUserId(?User $user_id): self
+    {
+        $this->user_id = $user_id;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Housepost[]
+     */
+    public function getHouseposts(): Collection
+    {
+        return $this->houseposts;
+    }
+
+    public function addHousepost(Housepost $housepost): self
+    {
+        if (!$this->houseposts->contains($housepost)) {
+            $this->houseposts[] = $housepost;
+            $housepost->setHouseId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHousepost(Housepost $housepost): self
+    {
+        if ($this->houseposts->contains($housepost)) {
+            $this->houseposts->removeElement($housepost);
+            // set the owning side to null (unless already changed)
+            if ($housepost->getHouseId() === $this) {
+                $housepost->setHouseId(null);
+            }
+        }
+
+        return $this;
     }
 
 
